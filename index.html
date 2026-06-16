@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- ============================================================
+       R2PCS — Site vitrine
+       Gérant : Romain PIZANA
+       Données extraites de Google Maps (scraping Apify)
+       Design : dark navy + orange / Bebas Neue
+       Stack  : HTML/CSS/JS monofichier — responsive mobile
+       ============================================================ -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R2PCS — Plombier à Mérignac & Bordeaux Métropole</title>
+  <meta name="description" content="Plombier à Mérignac. Salle de bain clé en main, rénovation plomberie, dépannage, climatisation. Intervention rapide sur Bordeaux et la CUB. ⭐ 4,7/5 — 55 avis Google." />
+
+  <!-- =====================  SCHEMA.ORG JSON-LD  ========================= -->
+  <!-- SEO local : balisage structuré LocalBusiness > Plumber -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Plumber",
+    "name": "R2PCS",
+    "telephone": "+33614390087",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "9 Rue Marcel Pagnol",
+      "addressLocality": "Mérignac",
+      "postalCode": "33700",
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 44.815916,
+      "longitude": -0.697314
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.7",
+      "reviewCount": "55",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "19:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "08:30", "closes": "13:00" }
+    ],
+    "url": "https://www.google.com/maps/search/?api=1&query=R2PCS&query_place_id=ChIJPZ9Ve4HbVA0Rgnt8RkYmob0",
+    "priceRange": "€€",
+    "areaServed": "Mérignac, Bordeaux, Communauté Urbaine de Bordeaux",
+    "description": "Plombier à Mérignac. Salle de bain clé en main, rénovation plomberie, climatisation. Romain PIZANA intervient chez les particuliers et professionnels de la CUB.",
+    "review": [
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Yohan Boumedine" },
+        "datePublished": "2026-02-02",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "Je recommande vivement l'entreprise R2PCS pour tous travaux de plomberie. C'est une société très sérieuse et professionnelle, qui fournit un travail soigné et de grande qualité. L'intervention a été réalisée avec efficacité, rigueur et un réel souci du détail."
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Louis R" },
+        "datePublished": "2025-09-24",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "L'entreprise R2PCS et son gérant Romain Pizana sont intervenus dans le cadre de la rénovation complète de mon appartement. Leur travail a été exemplaire du début à la fin : professionnalisme, rigueur et capacité à s'adapter aux aléas des chantiers."
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Philippe Lartigaud" },
+        "datePublished": "2025-07-02",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "L'entreprise de Romain est sérieuse, ponctuelle et efficace. Aucune mauvaise surprise, toujours arrangeante. Je vous recommande R2PCS pour son travail sur les salles d'eau clé en main."
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts : Bebas Neue (titres) + Inter (corps) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- =====================  STYLES  ========================= -->
+  <style>
+    /* ── Variables ──────────────────────────────────────────── */
+    :root {
+      --navy:        #0d1b2a;
+      --navy-light:  #132236;
+      --navy-card:   #1a2d44;
+      --orange:      #f07d00;
+      --orange-dark: #d06a00;
+      --white:       #ffffff;
+      --grey:        #8a9ab0;
+      --grey-light:  #e8eef5;
+      --radius:      8px;
+      --shadow:      0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    /* ── Reset ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+    img  { max-width: 100%; display: block; }
+    a    { text-decoration: none; color: inherit; }
+
+    /* ── Typographie ────────────────────────────────────────── */
+    h1, h2, h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+    h2 { font-size: clamp(2rem, 5vw, 3rem); }
+
+    /* ── Utilitaires ────────────────────────────────────────── */
+    .container     { max-width: 1100px; margin: 0 auto; padding: 0 1.25rem; }
+    .section-label { display: inline-block; color: var(--orange); font-size: .75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: .5rem; }
+    .divider       { width: 60px; height: 4px; background: var(--orange); border-radius: 2px; margin: .75rem 0 1.5rem; }
+    .btn-primary   { display: inline-flex; align-items: center; gap: .5rem; background: var(--orange); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 1px; padding: .75rem 1.75rem; border-radius: var(--radius); transition: background .2s, transform .15s; }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); }
+    .btn-outline   { display: inline-flex; align-items: center; gap: .5rem; border: 2px solid var(--orange); color: var(--orange); font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 1px; padding: .7rem 1.6rem; border-radius: var(--radius); transition: background .2s, color .2s, transform .15s; }
+    .btn-outline:hover { background: var(--orange); color: var(--white); transform: translateY(-2px); }
+    section { padding: 5rem 0; }
+
+    /* ============================================================
+       HEADER / NAV
+       ============================================================ */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(13,27,42,.96); backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(240,125,0,.2); padding: .9rem 0;
+    }
+    nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 2px; }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: .875rem; font-weight: 500; color: var(--grey); transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { display: flex; align-items: center; gap: .4rem; background: var(--orange); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 1px; padding: .55rem 1.2rem; border-radius: var(--radius); transition: background .2s; white-space: nowrap; }
+    .nav-cta:hover { background: var(--orange-dark); }
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .burger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--navy); padding: 1rem 1.25rem; gap: .75rem; border-bottom: 1px solid rgba(240,125,0,.2); }
+      .nav-links.open { display: flex; }
+      .burger { display: flex; }
+      /* CTA navbar masqué en mobile — remplacé par le floating button */
+      .nav-cta { display: none; }
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    #hero {
+      padding-top: 7rem; padding-bottom: 4rem;
+      background: linear-gradient(135deg, #0d1b2a 0%, #132236 60%, #1a2d44 100%);
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: ''; position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(240,125,0,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    @media (max-width: 768px) { .hero-grid { grid-template-columns: 1fr; } }
+
+    .hero-badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(240,125,0,.15); border: 1px solid rgba(240,125,0,.4); color: var(--orange); font-size: .8rem; font-weight: 600; letter-spacing: 1.5px; padding: .35rem .9rem; border-radius: 50px; margin-bottom: 1.25rem; }
+    .hero-badge .dot { width: 7px; height: 7px; background: var(--orange); border-radius: 50%; animation: pulse 1.8s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 7vw, 4.5rem); line-height: 1.05; letter-spacing: 2px; margin-bottom: 1.25rem; }
+    .hero-title span { color: var(--orange); }
+    .hero-desc  { color: var(--grey); font-size: 1.05rem; max-width: 480px; margin-bottom: 2rem; }
+    .hero-ctas  { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .hero-rating { margin-top: 2.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .stars-row   { display: flex; gap: 3px; }
+    .star        { color: #fbbf24; font-size: 1.1rem; }
+
+    .hero-img-wrap { position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+    .hero-img-wrap img { width: 100%; height: 420px; object-fit: cover; }
+    .hero-img-badge { position: absolute; bottom: 1rem; left: 1rem; background: rgba(13,27,42,.9); border: 1px solid rgba(240,125,0,.5); border-radius: var(--radius); padding: .6rem 1rem; display: flex; align-items: center; gap: .5rem; font-size: .85rem; font-weight: 600; }
+    .hero-img-badge .ico { color: var(--orange); font-size: 1.1rem; }
+    @media (max-width: 768px) { .hero-img-wrap { display: none; } }
+
+    /* ============================================================
+       POURQUOI NOUS FAIRE CONFIANCE
+       ============================================================ */
+    #confiance { background: var(--navy-light); }
+    .confiance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+    .confiance-card { background: var(--navy-card); border-radius: 10px; padding: 1.75rem 1.5rem; border: 1px solid rgba(255,255,255,.05); transition: border-color .2s, transform .2s; }
+    .confiance-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+    .confiance-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .confiance-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 1px; margin-bottom: .5rem; }
+    .confiance-card p  { color: var(--grey); font-size: .9rem; }
+
+    /* ============================================================
+       SERVICES
+       ============================================================ */
+    #services { background: var(--navy); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+    .service-card { background: var(--navy-card); border-radius: 10px; padding: 1.75rem; border-left: 4px solid var(--orange); transition: transform .2s, box-shadow .2s; }
+    .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .service-icon { font-size: 1.8rem; margin-bottom: .85rem; }
+    .service-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 1px; margin-bottom: .5rem; }
+    .service-card p  { color: var(--grey); font-size: .9rem; }
+
+    /* ============================================================
+       CHIFFRES CLÉS
+       ============================================================ */
+    #chiffres { background: var(--orange); padding: 3.5rem 0; }
+    .chiffres-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem; text-align: center; }
+    .chiffre-value { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; letter-spacing: 2px; line-height: 1; color: var(--white); }
+    .chiffre-label { font-size: .9rem; font-weight: 600; color: rgba(255,255,255,.85); margin-top: .25rem; }
+
+    /* ============================================================
+       AVIS CLIENTS
+       ============================================================ */
+    #avis { background: var(--navy-light); }
+    .avis-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem; }
+    .avis-global { display: flex; align-items: center; gap: 1rem; background: var(--navy-card); border-radius: var(--radius); padding: 1rem 1.5rem; border: 1px solid rgba(240,125,0,.3); }
+    .avis-score  { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--orange); }
+    .avis-meta small { color: var(--grey); font-size: .8rem; }
+    .avis-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.25rem; }
+
+    .avis-card { background: var(--navy-card); border-radius: 10px; padding: 1.5rem; border: 1px solid rgba(255,255,255,.06); display: flex; flex-direction: column; gap: .75rem; transition: border-color .2s; }
+    .avis-card:hover { border-color: rgba(240,125,0,.4); }
+    .avis-top  { display: flex; align-items: center; gap: .75rem; }
+    .avis-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--orange); }
+    .avis-author-name { font-weight: 600; font-size: .95rem; }
+    .avis-date        { font-size: .78rem; color: var(--grey); }
+    .avis-stars       { display: flex; gap: 2px; }
+    .avis-stars .star { font-size: .95rem; }
+    .avis-text { color: var(--grey-light); font-size: .875rem; line-height: 1.65; font-style: italic; }
+    .avis-text::before { content: '\201C'; color: var(--orange); font-size: 1.4rem; line-height: 0; vertical-align: -4px; margin-right: 2px; }
+    .avis-text::after  { content: '\201D'; color: var(--orange); font-size: 1.4rem; line-height: 0; vertical-align: -4px; margin-left: 2px; }
+    .local-guide { font-size: .7rem; color: var(--orange); font-weight: 600; background: rgba(240,125,0,.12); padding: 2px 7px; border-radius: 50px; margin-left: auto; white-space: nowrap; }
+    .avis-more { text-align: center; margin-top: 2rem; }
+    .avis-more a { color: var(--orange); font-weight: 600; font-size: .9rem; border-bottom: 1px solid rgba(240,125,0,.4); transition: border-color .2s; }
+    .avis-more a:hover { border-color: var(--orange); }
+
+    /* ============================================================
+       GALERIE PHOTOS
+       ============================================================ */
+    #photos { background: var(--navy); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+    .gallery-item { border-radius: 10px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; position: relative; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item::after { content: '🔍'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2rem; background: rgba(240,125,0,.0); transition: background .3s; }
+    .gallery-item:hover::after { background: rgba(240,125,0,.25); }
+
+    /* Lightbox */
+    #lightbox { display: none; position: fixed; inset: 0; z-index: 9000; background: rgba(0,0,0,.92); align-items: center; justify-content: center; }
+    #lightbox.open { display: flex; }
+    #lightbox img  { max-width: 90vw; max-height: 85vh; border-radius: 8px; }
+    #lightbox-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 2rem; color: var(--white); cursor: pointer; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; transition: background .2s; }
+    #lightbox-close:hover { background: var(--orange); }
+
+    /* ============================================================
+       CONTACT
+       ============================================================ */
+    #contact { background: var(--navy-light); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: 1rem; background: var(--navy-card); padding: 1.25rem; border-radius: var(--radius); border: 1px solid rgba(255,255,255,.05); }
+    .contact-item-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .contact-item h4  { font-weight: 600; margin-bottom: .2rem; }
+    .contact-item p, .contact-item a { color: var(--grey); font-size: .9rem; }
+    .contact-item a:hover { color: var(--orange); }
+
+    .horaires { background: var(--navy-card); border-radius: var(--radius); padding: 1.5rem; border: 1px solid rgba(255,255,255,.05); }
+    .horaires h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; }
+    .horaires-row { display: flex; justify-content: space-between; padding: .4rem 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: .9rem; }
+    .horaires-row:last-child { border-bottom: none; }
+    .horaires-row .jour  { color: var(--grey); }
+    .ferme  { color: #ef4444 !important; }
+    .ouvert { color: #22c55e; }
+
+    .cta-tel { background: var(--orange); border-radius: 10px; padding: 2rem; text-align: center; margin-top: 2rem; }
+    .cta-tel p { margin-bottom: .5rem; font-size: .9rem; opacity: .9; }
+    .cta-tel .tel-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 2px; color: var(--white); }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer { background: #08111c; padding: 2.5rem 0; border-top: 1px solid rgba(255,255,255,.06); }
+    .footer-inner { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; }
+    .footer-logo  { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; }
+    .footer-logo span { color: var(--orange); }
+    .footer-legal { color: var(--grey); font-size: .8rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: var(--grey); font-size: .8rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--orange); }
+
+    /* ============================================================
+       FLOATING CTA mobile
+       ============================================================ */
+    .float-cta { display: none; position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%); z-index: 500; background: var(--orange); color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 1px; padding: .85rem 2rem; border-radius: 50px; box-shadow: 0 6px 20px rgba(240,125,0,.5); transition: background .2s; white-space: nowrap; }
+    .float-cta:hover { background: var(--orange-dark); }
+    @media (max-width: 768px) { .float-cta { display: block; } }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header>
+  <div class="container">
+    <nav>
+      <a href="#" class="nav-logo">R2PCS <span>Plomberie</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#confiance">À propos</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#avis">Avis</a></li>
+        <li><a href="#photos">Réalisations</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:.75rem;">
+        <a href="tel:+33614390087" class="nav-cta">&#128222; Appeler maintenant</a>
+        <div class="burger" id="burger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+
+      <div>
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Plombier certifié · Mérignac & Bordeaux Métropole
+        </div>
+
+        <h1 class="hero-title">
+          Votre plombier<br />de confiance<br /><span>à Mérignac</span>
+        </h1>
+
+        <p class="hero-desc">
+          Salle de bain clé en main, rénovation complète, dépannage plomberie, climatisation —
+          Romain PIZANA et son équipe interviennent chez les particuliers et les professionnels
+          de la Communauté Urbaine de Bordeaux, avec rigueur et un vrai souci du détail.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="tel:+33614390087" class="btn-primary">&#128222; Appeler maintenant</a>
+          <a href="#services" class="btn-outline">Nos services</a>
+        </div>
+
+        <div class="hero-rating">
+          <div class="stars-row">
+            <span class="star">★</span><span class="star">★</span>
+            <span class="star">★</span><span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p style="font-size:.9rem;color:var(--grey)">
+            <strong style="color:var(--white)">4,7 / 5</strong> · 55 avis Google vérifiés
+          </p>
+        </div>
+      </div>
+
+      <!-- Photo principale (1ère imageUrl du JSON) -->
+      <div class="hero-img-wrap">
+        <img
+          src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAEUyLn3qneXf2Ke8pdyp0R0xcdrMyn0KdAyahcwmILTmzOZ5gDvA=w1920-h1080-k-no"
+          alt="R2PCS — Plombier à Mérignac"
+          loading="eager"
+        />
+        <div class="hero-img-badge">
+          <span class="ico">🔧</span>
+          <span>Artisan local · Mérignac</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     POURQUOI NOUS FAIRE CONFIANCE
+     ============================================================ -->
+<section id="confiance">
+  <div class="container">
+    <span class="section-label">Pourquoi nous choisir</span>
+    <h2>Ce qui fait la différence</h2>
+    <div class="divider"></div>
+    <p style="color:var(--grey);max-width:560px;margin-bottom:0">
+      55 clients ont noté R2PCS 4,7/5 sur Google. Voici pourquoi ils recommandent Romain PIZANA à leur entourage.
+    </p>
+
+    <div class="confiance-grid">
+
+      <div class="confiance-card">
+        <div class="confiance-icon">🏆</div>
+        <h3>Travail soigné & qualité irréprochable</h3>
+        <p>Chaque chantier est réalisé avec rigueur et un réel souci du détail. Le résultat est toujours conforme aux attentes, sans compromis sur la qualité.</p>
+      </div>
+
+      <div class="confiance-card">
+        <div class="confiance-icon">🤝</div>
+        <h3>À l'écoute & de bon conseil</h3>
+        <p>Romain prend le temps de comprendre vos besoins et vous guide vers les meilleures solutions. Pas de mauvaise surprise, les choses sont dites clairement dès le départ.</p>
+      </div>
+
+      <div class="confiance-card">
+        <div class="confiance-icon">⚡</div>
+        <h3>Réactivité & ponctualité</h3>
+        <p>Interventions dans les délais annoncés, respect des plannings même sur les chantiers complexes. R2PCS s'adapte aux aléas sans jamais vous laisser en plan.</p>
+      </div>
+
+      <div class="confiance-card">
+        <div class="confiance-icon">🔑</div>
+        <h3>Salle de bain clé en main</h3>
+        <p>De la conception à la livraison, R2PCS prend en charge l'intégralité de votre projet : plomberie, sanitaires, plancher chauffant, régulation. Vous n'avez qu'un interlocuteur.</p>
+      </div>
+
+      <div class="confiance-card">
+        <div class="confiance-icon">📍</div>
+        <h3>Artisan local de confiance</h3>
+        <p>Basé à Mérignac, Romain PIZANA connaît le territoire et ses spécificités. Intervention rapide sur toute la métropole bordelaise, particuliers et professionnels.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SERVICES
+     ============================================================ -->
+<section id="services">
+  <div class="container">
+    <span class="section-label">Nos prestations</span>
+    <h2>Ce que nous réalisons</h2>
+    <div class="divider"></div>
+    <p style="color:var(--grey);max-width:560px;margin-bottom:0">
+      De la rénovation complète au dépannage d'urgence, R2PCS couvre tous vos besoins en plomberie, sanitaires et climatisation.
+    </p>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">🚿</div>
+        <h3>Salle de bain clé en main</h3>
+        <p>Conception et réalisation complète : carrelage, sanitaires, douche à l'italienne, baignoire, robinetterie. Du projet à la livraison, R2PCS gère tout.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🏠</div>
+        <h3>Rénovation plomberie complète</h3>
+        <p>Remplacement des canalisations, mise aux normes, réfection des installations sanitaires dans le cadre d'une rénovation globale d'appartement ou de maison.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <h3>Dépannage plomberie</h3>
+        <p>Fuite, canalisation bouchée, robinet cassé — R2PCS diagnostique vite et répare proprement. Intervention réactive sur Mérignac et la CUB.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🌡️</div>
+        <h3>Plancher chauffant</h3>
+        <p>Installation et raccordement de systèmes de plancher chauffant hydraulique, régulation et mise en service. Confort thermique optimal pour vos espaces rénovés.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">❄️</div>
+        <h3>Climatisation</h3>
+        <p>Installation et entretien de systèmes de climatisation (split, multi-split). R2PCS intervient aussi bien pour le résidentiel que pour les locaux professionnels.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🚽</div>
+        <h3>Sanitaires & WC</h3>
+        <p>Pose et remplacement de WC, lave-mains, vasques, douches. Travail propre, finitions soignées, chantier nettoyé à la livraison.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔩</div>
+        <h3>Robinetterie & raccordements</h3>
+        <p>Remplacement de robinetterie, raccordement d'équipements électroménagers (lave-vaisselle, machine à laver), modification de réseaux existants.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🏢</div>
+        <h3>Marchés professionnels</h3>
+        <p>R2PCS travaille aussi avec les maîtres d'œuvre et entreprises du bâtiment. Sérieux, réactivité et respect des plannings de chantier sont la règle.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CHIFFRES CLÉS
+     ============================================================ -->
+<section id="chiffres">
+  <div class="container">
+    <div class="chiffres-grid">
+
+      <div>
+        <div class="chiffre-value">4,7</div>
+        <div class="chiffre-label">Note moyenne Google (/5)</div>
+      </div>
+
+      <div>
+        <div class="chiffre-value">55</div>
+        <div class="chiffre-label">Avis clients vérifiés</div>
+      </div>
+
+      <div>
+        <div class="chiffre-value">93%</div>
+        <div class="chiffre-label">Avis 5 étoiles</div>
+      </div>
+
+      <div>
+        <div class="chiffre-value">6j/7</div>
+        <div class="chiffre-label">Disponibilité (lun–sam)</div>
+      </div>
+
+      <div>
+        <div class="chiffre-value">CUB</div>
+        <div class="chiffre-label">Zone d'intervention</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     AVIS CLIENTS
+     (10 vrais avis extraits du JSON Google Maps)
+     ============================================================ -->
+<section id="avis">
+  <div class="container">
+    <div class="avis-header">
+      <div>
+        <span class="section-label">Témoignages</span>
+        <h2>Ce que disent nos clients</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="avis-global">
+        <div class="avis-score">4,7</div>
+        <div>
+          <div class="stars-row" style="margin-bottom:.25rem">
+            <span class="star">★</span><span class="star">★</span>
+            <span class="star">★</span><span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p style="font-weight:600">55 avis Google</p>
+          <small class="avis-meta">Source : Google Maps · vérifiés</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="avis-grid">
+
+      <!-- Avis 1 — Yohan Boumedine -->
+      <div class="avis-card">
+        <div class="avis-top">
+          <img class="avis-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocIpTXx555mWH4NC2Lmra1tEmslR5-A9QawjLWZX=s80-c-rp-mo-br100" alt="Yohan Boumedine" loading="lazy" />
+          <div>
+            <div class="avis-author-name">Yohan Boumedine</div>
+            <div class="avis-date">Février 2026</div>
+          </div>
+          <div class="avis-stars" style="margin-left:auto">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="avis-text">Je recommande vivement l'entreprise R2PCS pour tous travaux de plomberie. C'est une société très sérieuse et professionnelle, qui fournit un travail soigné et de grande qualité. L'intervention a été réalisée avec efficacité, rigueur et un réel souci du détail. Le résultat est impeccable et conforme à mes attentes. On peut compter sur leur réactivité et leur savoir-faire. Je suis entièrement satisfait et je referai appel à leurs services sans hésiter.</p>
+      </div>
+
+      <!-- Avis 2 — Suel Gashi -->
+      <div class="avis-card">
+        <div class="avis-top">
+          <img class="avis-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocKb75fipjWjqrXZq3M-ETlrlV0t1I5FEbEudkls=s80-c-rp-mo-br100" alt="Suel Gashi" loading="lazy" />
+          <div>
+            <div class="avis-author-name">Suel Gashi</div>
+            <div class="avis-date">Février 2026</div>
+          </div>
+          <div class="avis-stars" style="margin-left:auto">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="avis-text">J'ai fait appel à R2PCS pour refaire entièrement ma salle de bain et la cuisine de mon appartement à Bordeaux centre. Le gérant Monsieur PIZANA et son équipe ont été très réactifs et compréhensifs vis à vis de mes attentes. Également les travaux sont d'une qualité irréprochable. Je recommande fortement cette entreprise.</p>
+      </div>
+
+      <!-- Avis 3 — Margaux Minkendorfer -->
+      <div class="avis-card">
+        <div class="avis-top">
+          <img class="avis-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocJUieA-1H4csLdky286GbfP-q6r52MC0oaBxF0g=s80-c-rp-mo-br100" alt="Margaux Minkendorfer" loading="lazy" />
+          <div>
+            <div class="avis-author-name">Margaux Minkendorfer</div>
+            <div class="avis-date">Février 2026</div>
+          </div>
+          <div class="avis-stars" style="margin-left:auto">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="avis-text">J'ai fait appel à cette société pour refaire les sanitaires et SDB de ma maison il y a quelques années ! J'ai tellement été contente de leur travail que c'est tout naturellement que j'ai sollicité leurs services quand j'ai su qu'ils s'occupaient aussi de système de régulation et de plancher chauffant. Je recommande sans hésitation ! Ultra professionnel et très arrangeants. Un sens du conseil également très appréciable, surtout quand on ne s'y connaît pas trop. Merci encore !</p>
+      </div>
+
+      <!-- Avis 4 — Marion Tissenier -->
+      <div class="avis-card">
+        <div class="avis-top">
+          <img class="avis-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocIG4TcUCZpNIMZROG3Ynlo_X74BIi4L1o-daM04=s80-c-rp-mo-br100" alt="Marion Tissenier" loading="lazy" />
+          <div>
+            <div class="avis-author-name">Marion Tissenier</div>
+            <div class="avis-date">Février 2026</div>
+          </div>
+          <div class="avis-stars" style="margin-left:auto">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="avis-text">L'entreprise R2PCS est très professionnelle, son gérant Romain PIZANA est très réactif et à l'écoute de ses clients. En tant que maître d'œuvre c'est un plaisir de travailler avec lui. Je recommande.</p>
+      </div>
+
+      <!-- Avis 5 — Nolwenn Delsanti -->
+      <div class="avis-card">
+        <div class="avis-top">
+          <img class="avis-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocIPgvpVJmhTsVF0dDEHsGP3u5JAMwHD1kosiZKB=s80-c-rp-mo-br100" alt="Nolwenn Delsanti" loading="lazy" />
+          <div>
+            <div class="avis-author-name">Nolwenn Delsanti</div>
+            <div class="avis-date">Février 2026</div>
+          </div>
+          <div class="avis-stars" style="margin-left:auto">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="avis-text">Professionnel de confiance : très professionnel, ponctuel et efficace. Travail propre et de qualité, diagnostic rapide et solution adaptée. Personne sérieuse, aimable et de bon conseil. Rapport qualité/prix au top. Très satisfaite, je recommande.</p>
+      </div>
+
+      <!-- Avis 6 — Emilie Richelle -->
+      <div class="avis-card">
+        <div class="avis-top">
+          <img class="avis-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocJ8HKJbUNhJkaVagCnk5DXZeuA4bmI11vX8QyX-=s80-c-rp-mo-br100" alt="Emilie Richelle" loading="lazy" />
+          <div>
+            <div class="avis-author-name">Emilie Richelle</div>
+            <div class="avis-date">Février 2026</div>
+          </div>
+          <div class="avis-stars" style="margin-left:auto">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="avis-text">Que ce soit pour la clim ou la plomberie... Vous pouvez y aller les yeux fermés. Romain se rend disponible et trouve toujours des solutions. Chantier propre ! Merci encore pour ce que vous avez fait 👍 c'est impeccable !</p>
+      </div>
+
+      <!-- Avis 7 — Louis R -->
+      <div class="avis-card">
+        <div class="avis-top">
+          <img class="avis-avatar" src="https://lh3.googleusercontent.com/a-/ALV-UjWMRqIH0nnfZCA80MmEjgU9APWA1XlDPLIdeUF=s80-c-rp-mo-br100" alt="Louis R" loading="lazy" />
+          <div>
+            <div class="avis-author-name">Louis R</div>
+            <div class="avis-date">Septembre 2025</div>
+          </div>
+          <div class="avis-stars" style="margin-left:auto">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="avis-text">L'entreprise R2PCS et son gérant Romain Pizana sont intervenus dans le cadre de la rénovation complète de mon appartement et ont assuré l'intégralité des travaux de la salle de bain et des WC. Leur travail a été exemplaire du début à la fin : professionnalisme, rigueur et capacité à s'adapter aux aléas des chantiers et aux plannings de chacun. Je recommande vivement Romain à toute personne souhaitant réaliser des travaux de plomberie ou une rénovation complète en toute confiance.</p>
+      </div>
+
+      <!-- Avis 8 — Philippe Lartigaud (Local Guide) -->
+      <div class="avis-card">
+        <div class="avis-top">
+          <img class="avis-avatar" src="https://lh3.googleusercontent.com/a-/ALV-UjVk7jDkTUFQACTs0Cq-nxRPBRUMqIbEg11u-Cw=s80-c-rp-mo-br100" alt="Philippe Lartigaud" loading="lazy" />
+          <div>
+            <div class="avis-author-name">Philippe Lartigaud</div>
+            <div class="avis-date">Juillet 2025</div>
+          </div>
+          <span class="local-guide">⭐ Local Guide</span>
+        </div>
+        <div class="avis-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="avis-text">L'entreprise de Romain est sérieuse, ponctuelle et efficace. Aucune mauvaise surprise, toujours arrangeante. Ses clients sont toujours satisfaits du travail accompli. Je vous recommande R2PCS pour son travail sur les salles d'eau clé en main.</p>
+      </div>
+
+      <!-- Avis 9 — Paul Harel -->
+      <div class="avis-card">
+        <div class="avis-top">
+          <img class="avis-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocIiqB52_WgZ7eQWhAbF6B6Rj50WfuL7edpsqs4C=s80-c-rp-mo-br100" alt="Paul Harel" loading="lazy" />
+          <div>
+            <div class="avis-author-name">Paul Harel</div>
+            <div class="avis-date">Février 2026</div>
+          </div>
+          <div class="avis-stars" style="margin-left:auto">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="avis-text">Rénovation complète de ma maison, le choix, les conseils et la qualité sont au rendez-vous. Je recommande les yeux fermés.</p>
+      </div>
+
+      <!-- Avis 10 — Marie Leric -->
+      <div class="avis-card">
+        <div class="avis-top">
+          <img class="avis-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocJhzxVe-VDjMO3E1B7g9mcpwaUwJWdW_ToLBEIv=s80-c-rp-mo-br100" alt="Marie Leric" loading="lazy" />
+          <div>
+            <div class="avis-author-name">Marie Leric</div>
+            <div class="avis-date">Février 2026</div>
+          </div>
+          <div class="avis-stars" style="margin-left:auto">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+        <p class="avis-text">Meilleure plomberie et plombier 😉 Excellent travail, très professionnel et très sympathique. Je recommande fortement.</p>
+      </div>
+
+    </div><!-- /avis-grid -->
+
+    <div class="avis-more">
+      <p style="color:var(--grey);margin-bottom:.5rem;font-size:.85rem">Retrouvez les 55 avis sur Google Maps</p>
+      <a href="https://www.google.com/maps/search/?api=1&query=R2PCS&query_place_id=ChIJPZ9Ve4HbVA0Rgnt8RkYmob0" target="_blank" rel="noopener">Voir tous les avis Google →</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PHOTOS / RÉALISATIONS
+     (10 imageUrls issues du JSON)
+     ============================================================ -->
+<section id="photos">
+  <div class="container">
+    <span class="section-label">Nos réalisations</span>
+    <h2>Travaux récents</h2>
+    <div class="divider"></div>
+    <p style="color:var(--grey);max-width:560px;margin-bottom:0">
+      Photos issues du profil Google Maps de R2PCS — chantiers réels réalisés à Mérignac et dans la métropole bordelaise.
+    </p>
+
+    <div class="gallery-grid">
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAEUyLn3qneXf2Ke8pdyp0R0xcdrMyn0KdAyahcwmILTmzOZ5gDvA=w800-h600-k-no" alt="Réalisation R2PCS" loading="lazy" />
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAEJzzzpF6ilMbhbtdKzxpXJCF5Q0AQNXO4VLLGyLnJtbMnDwO_Q5=w800-h600-k-no" alt="Réalisation R2PCS" loading="lazy" />
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHPF78WPORkJCM_L-quNa0E8yA8lXsYC-3H34qH3LdoAgInmy9XY=w800-h600-k-no" alt="Réalisation R2PCS" loading="lazy" />
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAEWuI3UuV2KpdXwfypV5pNCtBBK_P8MJlHxxxqtsMKtVj3kxzPKl=w800-h600-k-no" alt="Réalisation R2PCS" loading="lazy" />
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAG9aNHrKKJ9UbOakUh3mUWahDkfTM-LkMw7Fq7G81rnS7qdWpgtb=w800-h600-k-no" alt="Réalisation R2PCS" loading="lazy" />
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAEy1GoVvCp1VD8Qzu2c2y98TJfL_tvXmLv2zuHthXXxQ5jAsLCI4=w800-h600-k-no" alt="Réalisation R2PCS" loading="lazy" />
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFD2redBO8kXuLHgKBbouDKni4NJahptH5BQq9i6jowIb_I1O5HP=w800-h600-k-no" alt="Réalisation R2PCS" loading="lazy" />
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGGk0qoR5AOh0Jxo2N9TQKAvL0PKF4NsiN51Z6F1-eljaNZTlJGH=w800-h600-k-no" alt="Réalisation R2PCS" loading="lazy" />
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFnVRcuht0mSV8SLOKulnLwic87BV9tuemPtfXKnqYG8SeDv_Kz7=w800-h600-k-no" alt="Réalisation R2PCS" loading="lazy" />
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFq4SNWNuXpTf9GGuEEDLAEuLLMLEKotl2mvk7pmSpUwLf7SSl5B=w800-h600-k-no" alt="Réalisation R2PCS" loading="lazy" />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <div id="lightbox-close" onclick="closeLightbox()" title="Fermer">✕</div>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section id="contact">
+  <div class="container">
+    <span class="section-label">Nous contacter</span>
+    <h2>Prenons contact</h2>
+    <div class="divider"></div>
+
+    <div class="contact-grid">
+
+      <div class="contact-info">
+
+        <!-- Téléphone — VRAI numéro extrait du JSON -->
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <h4>Téléphone</h4>
+            <a href="tel:+33614390087" style="color:var(--orange);font-size:1.2rem;font-weight:700">
+              +33 6 14 39 00 87
+            </a>
+            <p style="margin-top:.25rem">Devis gratuit · Romain PIZANA</p>
+          </div>
+        </div>
+
+        <!-- Adresse — extraite du JSON -->
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <h4>Zone d'intervention</h4>
+            <p>Basé à Mérignac (33700)</p>
+            <p>Bordeaux · Mérignac · Pessac · Talence · Villenave d'Ornon et toute la CUB</p>
+          </div>
+        </div>
+
+        <!-- Horaires — extraits du JSON -->
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div>
+            <h4>Horaires</h4>
+            <p>Lundi – Vendredi : 08h00 – 19h00</p>
+            <p>Samedi : 08h30 – 13h00</p>
+            <p style="color:#ef4444">Dimanche : Fermé</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">🗺️</div>
+          <div>
+            <h4>Retrouvez-nous sur Google</h4>
+            <a href="https://www.google.com/maps/search/?api=1&query=R2PCS&query_place_id=ChIJPZ9Ve4HbVA0Rgnt8RkYmob0" target="_blank" rel="noopener" style="color:var(--orange)">
+              Voir notre fiche Google Maps →
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+        <div class="horaires">
+          <h3>Horaires d'ouverture</h3>
+          <div class="horaires-row"><span class="jour">Lundi</span>    <span class="ouvert">08h00 – 19h00</span></div>
+          <div class="horaires-row"><span class="jour">Mardi</span>    <span class="ouvert">08h00 – 19h00</span></div>
+          <div class="horaires-row"><span class="jour">Mercredi</span> <span class="ouvert">08h00 – 19h00</span></div>
+          <div class="horaires-row"><span class="jour">Jeudi</span>    <span class="ouvert">08h00 – 19h00</span></div>
+          <div class="horaires-row"><span class="jour">Vendredi</span> <span class="ouvert">08h00 – 19h00</span></div>
+          <div class="horaires-row"><span class="jour">Samedi</span>   <span class="ouvert">08h30 – 13h00</span></div>
+          <div class="horaires-row"><span class="jour">Dimanche</span> <span class="ferme">Fermé</span></div>
+        </div>
+
+        <div class="cta-tel">
+          <p>Besoin d'un plombier rapidement ?</p>
+          <a href="tel:+33614390087">
+            <div class="tel-num">+33 6 14 39 00 87</div>
+          </a>
+          <p style="margin-top:.5rem;font-size:.8rem;opacity:.8">Devis gratuit — Intervention rapide sur Mérignac & CUB</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">R2PCS <span>Plomberie</span></div>
+      <div class="footer-legal">
+        <p>© 2025 R2PCS — Plombier à Mérignac · Gérant : Romain PIZANA</p>
+        <p>9 Rue Marcel Pagnol, 33700 Mérignac · SIRET : renseignement sur demande</p>
+      </div>
+      <div class="footer-links">
+        <a href="#hero">Accueil</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=R2PCS&query_place_id=ChIJPZ9Ve4HbVA0Rgnt8RkYmob0" target="_blank" rel="noopener">Google Maps</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating CTA mobile -->
+<a href="tel:+33614390087" class="float-cta">&#128222; Appeler maintenant</a>
+
+
+<!-- =====================  JAVASCRIPT  ========================= -->
+<script>
+  /* ── Menu burger mobile ─────────────────────────────────── */
+  const burger   = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  /* ── Lightbox galerie ───────────────────────────────────── */
+  const lightbox    = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    lightboxImg.src = img.src.replace(/=w\d+-h\d+-k-no/, '=w1920-h1080-k-no');
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lightboxImg.src = '';
+  }
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ── Scroll reveal ──────────────────────────────────────── */
+  const revealEls = document.querySelectorAll('.confiance-card, .service-card, .avis-card, .gallery-item, .contact-item');
+  const observer  = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity   = '1';
+        e.target.style.transform = 'translateY(0)';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => {
+    el.style.opacity   = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+
+  /* ── Header shadow au scroll ────────────────────────────── */
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    header.style.boxShadow = window.scrollY > 10 ? '0 2px 20px rgba(0,0,0,0.5)' : 'none';
+  });
+</script>
+
+</body>
+</html>
